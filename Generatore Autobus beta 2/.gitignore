@@ -3,12 +3,14 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#
+obj/
 # User-specific files
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-
+*.cache
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -84,6 +86,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+
 
 # Chutzpah Test files
 _Chutzpah*
