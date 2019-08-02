@@ -1,16 +1,16 @@
 const Influx = require('influx');
 const express = require('express');
-const http = require('http');
+// const http = require('http');
 const os = require('os');
 const app = express();
 const port = 4000;
-var child = require('child_process').exec;
-var pathinflux = 'start \\DBinflux\\influxdb-1.7.4-1\\influxd.exe'
-child(pathinflux, function (err, data) {
-  if (err) {
-    return console.log('something bad happened', err);
-  }
-})
+// var child = require('child_process').exec;
+// var pathinflux = 'start \\DBinflux\\influxdb-1.7.4-1\\influxd.exe'
+// child(pathinflux, function (err, data) {
+//   if (err) {
+//     return console.log('something bad happened', err);
+//   }
+// })
 app.use(express.json());
 var contatore = 0;
 app.listen(port, (err) => {
@@ -48,11 +48,11 @@ influx.getDatabaseNames()
       return influx.createDatabase('express_3');
     }
   })
-  .then(() => {
-    http.createServer(app).listen(3000, function () {
-      console.log('Influx Listening on port 3000')
-    })
-  })
+  // .then(() => {
+  //   http.createServer(app).listen(3000, function () {
+  //     console.log('Influx Listening on port 3000')
+  //   })
+  // })
   .catch(err => {
     console.error(`Error creating Influx database!`);
   })
