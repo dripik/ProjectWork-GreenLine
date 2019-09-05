@@ -22,4 +22,10 @@ sudo docker start influxdb // avvio un container stoppato ma che non è stato ri
 prove per collegare chronograf
 
 
+comandi utili 
+> docker --help
+> docker container --help
+> docker container ls --help
+> docker run --help
+
 
