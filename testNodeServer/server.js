@@ -1,25 +1,11 @@
 const Influx = require('influx');
-const express = require('express');
-// const http = require('http');
-const os = require('os');
-const app = express();
-const port = 4000;
-// var child = require('child_process').exec;
-// var pathinflux = 'start \\DBinflux\\influxdb-1.7.4-1\\influxd.exe'
-// child(pathinflux, function (err, data) {
-//   if (err) {
-//     return console.log('something bad happened', err);
-//   }
-// })
-app.use(express.json());
-var contatore = 0;
-app.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err);
-  }
-
-  console.log(`Node server is listening on ${port}`);
+const fastify = require('fastify')({
+  logger: true,
+  ignoreTrailingSlash: true  //cercare a cosa serve e se è ancora necessario
 });
+const os = require('os');
+const fastifyport = 4000;
+var contatore = 0;
 const influx = new Influx.InfluxDB({
   host: 'localhost',
   database: 'express_3',
@@ -48,16 +34,10 @@ influx.getDatabaseNames()
       return influx.createDatabase('express_3');
     }
   })
-  // .then(() => {
-  //   http.createServer(app).listen(3000, function () {
-  //     console.log('Influx Listening on port 3000')
-  //   })
-  // })
   .catch(err => {
     console.error(`Error creating Influx database!`);
   })
-/* var element; */
-app.post('/', (request, response) => {
+fastify.post('/', async (request, reply) => {
   dati = request.body[0];
   influx.writePoints([
     {
@@ -77,20 +57,31 @@ app.post('/', (request, response) => {
   ]).catch(err => {
     console.error(`Error saving data to InfluxDB! ${err.stack}`)
   })
-  response.send('Ok');
+  reply.send('Ok');
   console.log("// " + (++contatore));
   console.log(request.body);
 });
 
 //parte in get
-
-
-app.get('/get', function (req, res) {
-  influx.query(`
+fastify.get('/get',async (request, reply) => {
+ await influx.query(`
     select * from response_times `)
     .then(result => {
-      res.json(result)
+      reply.code(204)
+      reply.send(JSON.stringify(result))
     }).catch(err => {
-      res.status(500).send(err.stack)
+      reply.status(500).send(err.stack)
     })
 })
+
+// Run the server!
+const start = async () => {
+  try {
+      await fastify.listen(fastifyport)
+      fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  } catch (err) {
+      fastify.log.error(err)
+      process.exit(1)
+  }
+}
+start();
