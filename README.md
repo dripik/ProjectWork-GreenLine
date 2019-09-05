@@ -13,4 +13,4 @@ Come usare il programma:
 6: avviare postman (per verificare il contenuto del body dei post)
 7: select da console influx per verificare l'inserimento dei dati
 ( selct * from "response_times" )
-8: fare GET all'indirizzo http://localhost:3000/get per verificare body 
+8: fare GET all'indirizzo http://localhost:4000/get per verificare body 
