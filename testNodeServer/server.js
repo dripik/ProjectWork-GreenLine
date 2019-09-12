@@ -68,7 +68,7 @@ fastify.get('/get',async (request, reply) => {
  await influx.query(`
     select * from response_times `)
     .then(result => {
-      reply.code(204)
+      reply.code(200)
       reply.send(JSON.stringify(result))
     }).catch(err => {
       reply.status(500).send(err.stack)
