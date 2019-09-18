@@ -1,5 +1,5 @@
 comandi per collegarsi da terminal a influxdb su docker
-sudo docker run --name=influxdb -d -p 8086:8086 influxdb  //avvio il container di docker esponendo la porta standar 8086 il nome dell'istance docker sarà influxdb
+sudo docker run --rm --name=influxdb -d -p 8086:8086 influxdb //avvio il container di docker esponendo la porta standar 8086 il nome dell'istance docker sarà influxdb
 sudo docker exec -it influxdb influx  //vado ad eseguire il comando influx dal container appena creato, cioè mi collego ad influx attraverso docker e non dal host
 
 sudo apt install influxdb-client //vado ad installare sul host la cli per influxdb
