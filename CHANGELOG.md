@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.3] - 18/09/2019
+### Added
+- Passati da express a fastify 
+- aggiunti vari .md per avviare container docker
+- modificato API per registrare dati utente su db postgres
+- aggiunta di variabili per impostare ip e porta per l'API
+- modificato funzioni su API per farle funzionare come promesse 
+
+
 ## [0.0.2] - 1/08/2019
 ### Added
 - Sviluppo iniziale per cloud AWS
