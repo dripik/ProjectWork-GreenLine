@@ -14,3 +14,4 @@ Come usare il programma:
 7: select da console influx per verificare l'inserimento dei dati
 ( selct * from "response_times" )
 8: fare GET all'indirizzo http://localhost:4000/get per verificare body 
+9:
