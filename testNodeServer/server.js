@@ -4,7 +4,7 @@ const connectionStr = {
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
-  password: 'vale46',
+  password: 'xxxxx',
   port: 5434
 };
 const fastifyport = 4000;
