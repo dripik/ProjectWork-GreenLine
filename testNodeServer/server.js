@@ -4,18 +4,19 @@ const connectionStr = {
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
-  password: 'xxxxx',
-  port: 5434
+  password: 'vale',
+  port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.5';
+const fastifyip = '192.168.1.8';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
 });
-fastify.register(require('fastify-cors'), {
-  //put options here
-})
+fastify
+  .register(require('fastify-cors'), {})
+  .register(require('fastify-jwt'), { secret: 'supersecret' })
+
 const os = require('os');
 var contatore = 0;
 const influx = new Influx.InfluxDB({
@@ -70,10 +71,10 @@ fastify.post('/', async (request, reply) => {
     reply.status(500)
     console.error(`Error saving data to InfluxDB! ${err.stack}`)
   }).then(() =>
-  console.log("// " + (++contatore)),
-  console.log(request.body))
+    console.log("// " + (++contatore)),
+    console.log(request.body))
   reply.status(204)
- });
+});
 
 //parte in get
 fastify.get('/get', async (request, reply) => {
@@ -86,23 +87,60 @@ fastify.get('/get', async (request, reply) => {
     })
 })
 //////////////////////////////////////////////////////// parte per sito web che gestite le richieste di login e registrazione
-fastify.post('/prova', async (request, reply) => {
+fastify.post('/ApplicationUser/Registration', async (request, reply) => {
   const client = new pg.Client(connectionStr);
   var dati = request.body;
   await client.connect()
     .then(() => console.log('client has connect'));
-  await client.query(`INSERT INTO utenti (username, Email, FullName, Password) VALUES('${dati.UserName}','${dati.Email}','${dati.FullName}','${dati.Password}')`)
+  await client.query(`INSERT INTO utenti (UserName, FullName, Email, Password) VALUES ('${dati.UserName}','${dati.FullName}','${dati.Email}',crypt('${dati.Password}', gen_salt('bf')))`)
     .then(() => {
       client.end()
       console.log('client close without error')
-      reply.status(200).send({ succeded: true });
+      reply.status(200).send({ succeeded: true });
     }).catch(err => {
       client.end()
-      console.log('client close with errors: ' + err)
+      console.log('client close with : ' + err)
       reply.status(500).send(err)
     })
 });
-
+fastify.post('/ApplicationUser/Login', async (request, reply) => {
+  const client = new pg.Client(connectionStr);
+  var dati = request.body;
+  await client.connect()
+    .then(() => console.log('client has connect'));
+  await client.query(`SELECT (Id) FROM utenti WHERE UserName = ('${dati.UserName}') AND Password = crypt ('${dati.Password}', Password)`)
+    .then(result => {
+      client.end()
+      console.log('client close without error')
+      if (result.rows.length == 1) {
+        var id = { UserID: result.rows[0].id }    //controllo che sia l`id esatto
+        const token = fastify.jwt.sign({ id })
+        reply.status(200).send({ result, token })
+      } else {
+        reply.status(400).send({ msg: "Username o password errati" })
+      }
+    }).catch(err => {
+      client.end()
+      console.log('client close with : ' + err)
+      reply.status(500).send(err)
+    })
+})
+fastify.get('/UserProfile', async (request, reply) => {
+  const bearerHeader = request.headers.authorization
+  if (typeof bearerHeader !== 'undefined') {
+    const token = bearerHeader.split(' ');
+    const decoded = fastify.jwt.decode(token[1])
+    console.log(decoded.id);
+    const client = new pg.Client(connectionStr);
+    await client.connect()
+      .then(() => console.log('client has connect'));
+    await client.query(`SELECT * FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
+    .then(result => {
+      console.log(result.rows[0])
+    reply.code(200).send(result.rows[0])
+  })
+  }
+})
 // Run the server!
 const start = async () => {
   try {
