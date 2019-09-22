@@ -5,10 +5,10 @@ const connectionStr = {
   host: 'localhost',
   database: 'postgres',
   password: 'xxxx',
-  port: 5432
+  port: 5434
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.4';
+const fastifyip = '192.168.1.178';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
