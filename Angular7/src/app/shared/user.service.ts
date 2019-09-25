@@ -2,13 +2,23 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+interface Location{
+  IdVeicolo: number,
+  StringaVeicolo: string,
+  TimeStamp: string,
+  Latitudine: number,
+  Longitudine: number,
+  Altitudine: number,
+  Passeggeri: number,
+  PorteAperte: boolean
+}
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'http://192.168.1.178:4000';
+  readonly BaseURI = 'http://192.168.1.4:4000';
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
@@ -49,5 +59,9 @@ export class UserService {
 
   getUserProfile() {
     return this.http.get(this.BaseURI + '/UserProfile');
+  }
+
+  getMapData() {
+    return this.http.get<Location[]>(this.BaseURI + '/get');
   }
 }

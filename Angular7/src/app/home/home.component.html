@@ -1,12 +1,77 @@
-<nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand text-white">JWT Auth System</a>
-  <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">GreenLine</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">Seleziona Bus</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <button *ngFor="let item of autobus" class="dropdown-item" type="button">{{item}}</button>
+        </div>
+      </li>
+    </ul>
+    <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+  </div>
 </nav>
+<!-- Dati Autobus -->
+<div class="container">
+  <div class="row">
+    <div class="pro">
+      <div class="card m-5" style="width:18rem" *ngIf="userDetails">
+        <ul class="list-group">
+          <li class="list-group-item"><strong>Username : </strong>{{userDetails.username}}</li>
+          <li class="list-group-item"><strong>FullName : </strong>{{userDetails.fullname}}</li>
+          <li class="list-group-item"><strong>Email : </strong>{{userDetails.email}}</li>
+        </ul>
+      </div>
+      <div class="card m-5" style="width:18rem">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static"
+          aria-haspopup="true" aria-expanded="false">
+          Selezione Autobus
+        </button>
+        <div class="dropdown-menu dropdown-menu-lg-left">
+          <button *ngFor="let item of autobus" class="dropdown-item" type="button">{{item}}</button>
+        </div>
+      </div>
+    </div>
+    <!-- MAPPA -->
+    <div class="card m-5">
+      <span class="border border-dark">
 
-<div class="card m-5" style="width:18rem" *ngIf="userDetails">
-  <ul class="list-group">
-    <li class="list-group-item"><strong>Username : </strong>{{userDetails.username}}</li>
-    <li class="list-group-item"><strong>FullName : </strong>{{userDetails.fullname}}</li>
-    <li class="list-group-item"><strong>Email : </strong>{{userDetails.email}}</li>
-  </ul>
+        <aol-map [width]="'500px'" [height]="'300'">
+          <aol-view [zoom]="5">
+            <aol-coordinate [x]="cordinateinit[0]" [y]="cordinateinit[1]" [srid]="'EPSG:4326'"></aol-coordinate>
+          </aol-view>
+          <aol-interaction-default></aol-interaction-default>
+          <aol-layer-tile>
+            <aol-source-osm></aol-source-osm>
+          </aol-layer-tile>
+          <aol-layer-vector>
+            <aol-source-vector>
+              <aol-feature>
+                <aol-geometry-linestring>
+                  <aol-collection-coordinates [coordinates]="cordinate.slice()" [srid]="'EPSG:4326'">
+                  </aol-collection-coordinates>
+                </aol-geometry-linestring>
+                <aol-style>
+                  <aol-style-stroke [color]="'red'"></aol-style-stroke>
+                </aol-style>
+              </aol-feature>
+            </aol-source-vector>
+          </aol-layer-vector>
+        </aol-map>
+      </span>
+    </div>
+
+  </div>
 </div>
