@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.4] - 28/09/2019
+### Added
+- Angular project login/registration 
+- bash script for linux docker container
+- Api for Angular project on Nodeserver/server.js
+
+
 ## [0.0.3] - 18/09/2019
 ### Added
 - Passati da express a fastify 
