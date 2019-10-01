@@ -21,7 +21,7 @@ namespace DataReader
             };
 
             // configure Redis
-            var redis = new RedisClient("192.168.1.5");
+            var redis = new RedisClient("192.168.1.155");
             // config ping
             var ping = new Ping();
 
@@ -42,6 +42,7 @@ namespace DataReader
                             try
                             {
                                 await PostextbyPost("http://192.168.1.5:4000/prova", x);
+                                Console.WriteLine("dati da coda redis");
                                 
                             }
                             catch (Exception e )
@@ -73,7 +74,7 @@ namespace DataReader
 
                         Console.WriteLine("host non raggiungibile");
                         // push to redis queue
-                        redis.LPush("sensors_data", data);
+                        redis.RPush("sensors_data", data);
                         Console.WriteLine("pusho su redis dentro catch");
 
                     }
