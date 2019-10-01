@@ -42,7 +42,7 @@ namespace DataReader
                             try
                             {
                                 await PostextbyPost("http://192.168.1.5:4000/prova", x);
-                                Console.WriteLine("dati da coda redis");
+                                Console.WriteLine("dati da coda redis" + x);
                                 
                             }
                             catch (Exception e )
