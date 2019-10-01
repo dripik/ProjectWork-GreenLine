@@ -4,8 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using System.Web;
 using CSRedis;
+using Newtonsoft.Json;
 
 
 namespace DataSender
@@ -18,19 +19,30 @@ namespace DataSender
             //string c = await GetTextByGet("http://192.168.1.4:4000/get");
             //Console.WriteLine(c);
             // configure Redis
-            var redis = new RedisClient("192.168.1.4");
-            var serializer = new JavaScriptSerializer();
+            var redis = new RedisClient("192.168.1.7");
+            //var serializer = new JavaScriptSerializer();
 
-
+      
             while (true)
             {
                 // read from Redis queue
                 string x = redis.BLPop(30, "sensors_data");
                 Console.WriteLine(x);
-                string insert = await PostextbyPost("http://192.168.1.4:4000/post",x);
-                Console.WriteLine(insert);
-                // wait 1 second
-                System.Threading.Thread.Sleep(1000);
+                try
+                {
+                   
+                   
+                    bool insert = await PostextbyPost("http://192.168.1.7:4000/prova", x);
+                    Console.WriteLine(insert);
+                    // wait 1 second
+                    System.Threading.Thread.Sleep(1000);
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err.Message);
+                    
+                }
+                
 
 
                 // send value to remote API
@@ -46,13 +58,19 @@ namespace DataSender
             string responseString = await response.Content.ReadAsStringAsync();
             return responseString;
         }
-        public static async Task<string> PostextbyPost(string posturi, string data)
+        public static async Task<bool> PostextbyPost(string posturi, string data)
         {
             var httpClient = new HttpClient();
             var response = await httpClient.PostAsync(new Uri(posturi), new StringContent(data));
-            response.EnsureSuccessStatusCode();
-            string responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            if (response.IsSuccessStatusCode)
+            {
+                return true; // Handle success
+            }
+            else
+            {
+                return false; // Handle failure
+            }
+           
         }
     }
 }
