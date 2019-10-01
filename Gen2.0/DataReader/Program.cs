@@ -21,7 +21,7 @@ namespace DataReader
             };
 
             // configure Redis
-            var redis = new RedisClient("192.168.1.155");
+            var redis = new RedisClient("192.168.1.5");
             // config ping
             var ping = new Ping();
 
@@ -56,7 +56,7 @@ namespace DataReader
                       
                         try
                         {
-                            bool insert = await PostextbyPost("http://192.168.1.5:4000/prova", data);
+                            bool insert = await PostextbyPost("http://192.168.1.5:4000/", data);
                             Console.WriteLine(insert);
                             // wait 1 second
                         }
