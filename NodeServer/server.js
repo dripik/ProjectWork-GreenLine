@@ -5,10 +5,10 @@ const connectionStr = {
   host: 'localhost',
   database: 'postgres',
   password: 'xxxx',
-  port: 5434
+  port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.178';
+const fastifyip = '192.168.1.155';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
@@ -51,20 +51,20 @@ influx.getDatabaseNames()
     console.error(`Error creating Influx database!`);
   })
 fastify.post('/', async (request, reply) => {
-  dati = request.body[0];
+  dati = JSON.parse(request.body);
   await influx.writePoints([
     {
       measurement: 'response_times',
       tags: { host: os.hostname() },
       fields: {
-        IdVeicolo: dati.idVehicle,
-        StringaVeicolo: dati.description,
-        TimeStamp: dati.timeDate,
-        Latitudine: dati.latitude,
-        Longitudine: dati.longitude,
-        Altitudine: dati.altitude,
-        Passeggeri: dati.passenger,
-        PorteAperte: dati.theDoors
+        IdVeicolo: dati.IdVeicolo,
+        StringaVeicolo: dati.StringaVeicolo,
+        TimeStamp: dati.TimeStamp,
+        Latitudine: dati.Latitudine,
+        Longitudine: dati.Longitudine,
+        Altitudine: 10,
+        Passeggeri: dati.Passeggeri,
+        PorteAperte: dati.PorteAperte
       },
     }
   ]).catch(err => {
@@ -135,10 +135,10 @@ fastify.get('/UserProfile', async (request, reply) => {
     await client.connect()
       .then(() => console.log('client has connect'));
     await client.query(`SELECT * FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
-    .then(result => {
-      console.log(result.rows[0])
-    reply.code(200).send(result.rows[0])
-  })
+      .then(result => {
+        console.log(result.rows[0])
+        reply.code(200).send(result.rows[0])
+      })
   }
 })
 // Run the server!
