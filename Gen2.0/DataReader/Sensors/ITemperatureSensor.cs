@@ -9,6 +9,7 @@ namespace DataReader.Sensors
     interface ITemperatureSensor
     {
         void SetTemperature(decimal temperature);
-        decimal GetTemperature();
+        decimal Long();
+        decimal Lat();
     }
 }

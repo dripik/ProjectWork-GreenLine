@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sensors\ISensor.cs" />
     <Compile Include="Sensors\ITemperatureSensor.cs" />
+    <Compile Include="Sensors\Json.cs" />
     <Compile Include="Sensors\VirtualTemperatureSensor.cs" />
   </ItemGroup>
   <ItemGroup>

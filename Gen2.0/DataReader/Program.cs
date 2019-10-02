@@ -7,6 +7,7 @@ using DataReader.Sensors;
 using CSRedis;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using Newtonsoft.Json;
 
 namespace DataReader
 {
@@ -14,6 +15,8 @@ namespace DataReader
     {
         static async Task Main(string[] args)
         {
+
+ 
             // init sensors
             List<ISensor> sensors = new List<ISensor>
             {
@@ -66,7 +69,7 @@ namespace DataReader
                             redis.LPush("sensors_data", data);
                             Console.WriteLine("Scritto in redis");
                         }
-                        System.Threading.Thread.Sleep(1000);
+                       
 
                     }
                     else
