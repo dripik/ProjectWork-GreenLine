@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-interface Location{
+interface idBus {
+  time: string,
+  IdBUS: number
+}
+interface Location {
   IdVeicolo: number,
   StringaVeicolo: string,
   TimeStamp: string,
@@ -62,6 +66,15 @@ export class UserService {
   }
 
   getMapData() {
-    return this.http.get<Location[]>(this.BaseURI + '/get');
+    return this.http.get<Location[]>(this.BaseURI+ '/get');
+  }
+
+  getMapDataByID(Id:string) {
+    let params = new HttpHeaders().set("IdBus", Id);
+    return this.http.get<Location[]>(this.BaseURI + '/get',  {headers: params});
+  }
+
+  getBusId() {
+    return this.http.get<idBus[]>(this.BaseURI + '/get/idBUS');
   }
 }
