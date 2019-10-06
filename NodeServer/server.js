@@ -4,11 +4,11 @@ const connectionStr = {
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
-  password: 'xxxx',
+  password: 'password!',
   port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.155';
+const fastifyip = '192.168.1.5';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
@@ -78,8 +78,30 @@ fastify.post('/', async (request, reply) => {
 
 //parte in get
 fastify.get('/get', async (request, reply) => {
+  const BusId = request.headers.idbus;
+  if (typeof BusId !== 'undefined') {
+    let id = parseInt(BusId);
+    await influx.query(`
+    select * from response_times where IdVeicolo =${id}`)
+      .then(result => {
+        reply.status(200).send(JSON.stringify(result))
+      }).catch(err => {
+        reply.status(500).send(err.stack)
+      })
+  } else {
+    await influx.query(`
+  select * from response_times limit 1 `)         //limit 1 per chiamata ngOnInit() ricavo solo cordinate per generare mappa
+      .then(result => {
+        reply.status(200).send(JSON.stringify(result))
+      }).catch(err => {
+        reply.status(500).send(err.stack)
+      })
+  }
+});
+//parte in get per id BUS
+fastify.get('/get/idBUS', async (request, reply) => {
   await influx.query(`
-    select * from response_times `)
+    select distinct IdVeicolo as IdBUS from response_times `)
     .then(result => {
       reply.status(200).send(JSON.stringify(result))
     }).catch(err => {
@@ -130,13 +152,13 @@ fastify.get('/UserProfile', async (request, reply) => {
   if (typeof bearerHeader !== 'undefined') {
     const token = bearerHeader.split(' ');
     const decoded = fastify.jwt.decode(token[1])
-    console.log(decoded.id);
+    //console.log(decoded.id);
     const client = new pg.Client(connectionStr);
     await client.connect()
       .then(() => console.log('client has connect'));
-    await client.query(`SELECT * FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
+    await client.query(`SELECT username,email,fullname FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
       .then(result => {
-        console.log(result.rows[0])
+        //console.log(result.rows[0])
         reply.code(200).send(result.rows[0])
       })
   }
