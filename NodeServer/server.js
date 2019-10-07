@@ -158,8 +158,13 @@ fastify.get('/UserProfile', async (request, reply) => {
       .then(() => console.log('client has connect'));
     await client.query(`SELECT username,email,fullname FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
       .then(result => {
+        client.end()
         //console.log(result.rows[0])
         reply.code(200).send(result.rows[0])
+      }).catch(err => {
+        client.end()
+        console.log('client close with : ' + err)
+        reply.status(500).send(err)
       })
   }
 })
