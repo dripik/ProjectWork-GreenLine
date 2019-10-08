@@ -2,13 +2,13 @@ const Influx = require('influx');
 const pg = require('pg');
 const connectionStr = {
   user: 'postgres',
-  host: 'localhost',
+  host: '192.168.1.5',
   database: 'postgres',
   password: 'password!',
   port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.5';
+const fastifyip = '192.168.1.3';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
@@ -20,7 +20,7 @@ fastify
 const os = require('os');
 var contatore = 0;
 const influx = new Influx.InfluxDB({
-  host: 'localhost',
+  host: '192.168.1.5',
   database: 'express_3',
   schema: [
     {
@@ -71,17 +71,18 @@ fastify.post('/', async (request, reply) => {
     reply.status(500)
     console.error(`Error saving data to InfluxDB! ${err.stack}`)
   }).then(() =>
+    reply.status(204),
     console.log("// " + (++contatore)),
     console.log(request.body))
-  reply.status(204)
+  
 });
 
 //parte in get
-fastify.get('/get', async (request, reply) => {
+fastify.get('/get', (request, reply) => {
   const BusId = request.headers.idbus;
   if (typeof BusId !== 'undefined') {
     let id = parseInt(BusId);
-    await influx.query(`
+    influx.query(`
     select * from response_times where IdVeicolo =${id}`)
       .then(result => {
         reply.status(200).send(JSON.stringify(result))
@@ -89,7 +90,7 @@ fastify.get('/get', async (request, reply) => {
         reply.status(500).send(err.stack)
       })
   } else {
-    await influx.query(`
+    influx.query(`
   select * from response_times limit 1 `)         //limit 1 per chiamata ngOnInit() ricavo solo cordinate per generare mappa
       .then(result => {
         reply.status(200).send(JSON.stringify(result))
@@ -99,8 +100,8 @@ fastify.get('/get', async (request, reply) => {
   }
 });
 //parte in get per id BUS
-fastify.get('/get/idBUS', async (request, reply) => {
-  await influx.query(`
+fastify.get('/get/idBUS', (request, reply) => {
+  influx.query(`
     select distinct IdVeicolo as IdBUS from response_times `)
     .then(result => {
       reply.status(200).send(JSON.stringify(result))
@@ -109,12 +110,12 @@ fastify.get('/get/idBUS', async (request, reply) => {
     })
 })
 //////////////////////////////////////////////////////// parte per sito web che gestite le richieste di login e registrazione
-fastify.post('/ApplicationUser/Registration', async (request, reply) => {
+fastify.post('/ApplicationUser/Registration', (request, reply) => {
   const client = new pg.Client(connectionStr);
   var dati = request.body;
-  await client.connect()
+  client.connect()
     .then(() => console.log('client has connect'));
-  await client.query(`INSERT INTO utenti (UserName, FullName, Email, Password) VALUES ('${dati.UserName}','${dati.FullName}','${dati.Email}',crypt('${dati.Password}', gen_salt('bf')))`)
+  client.query(`INSERT INTO utenti (UserName, FullName, Email, Password) VALUES ('${dati.UserName}','${dati.FullName}','${dati.Email}',crypt('${dati.Password}', gen_salt('bf')))`)
     .then(() => {
       client.end()
       console.log('client close without error')
@@ -125,12 +126,12 @@ fastify.post('/ApplicationUser/Registration', async (request, reply) => {
       reply.status(500).send(err)
     })
 });
-fastify.post('/ApplicationUser/Login', async (request, reply) => {
+fastify.post('/ApplicationUser/Login', (request, reply) => {
   const client = new pg.Client(connectionStr);
   var dati = request.body;
-  await client.connect()
+  client.connect()
     .then(() => console.log('client has connect'));
-  await client.query(`SELECT (Id) FROM utenti WHERE UserName = ('${dati.UserName}') AND Password = crypt ('${dati.Password}', Password)`)
+  client.query(`SELECT (Id) FROM utenti WHERE UserName = ('${dati.UserName}') AND Password = crypt ('${dati.Password}', Password)`)
     .then(result => {
       client.end()
       console.log('client close without error')
@@ -147,16 +148,16 @@ fastify.post('/ApplicationUser/Login', async (request, reply) => {
       reply.status(500).send(err)
     })
 })
-fastify.get('/UserProfile', async (request, reply) => {
+fastify.get('/UserProfile', (request, reply) => {
   const bearerHeader = request.headers.authorization
   if (typeof bearerHeader !== 'undefined') {
     const token = bearerHeader.split(' ');
     const decoded = fastify.jwt.decode(token[1])
     //console.log(decoded.id);
     const client = new pg.Client(connectionStr);
-    await client.connect()
+    client.connect()
       .then(() => console.log('client has connect'));
-    await client.query(`SELECT username,email,fullname FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
+    client.query(`SELECT username,email,fullname FROM utenti WHERE Id = ('${decoded.id.UserID}')`)
       .then(result => {
         client.end()
         //console.log(result.rows[0])
