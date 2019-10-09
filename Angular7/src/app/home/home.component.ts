@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit {
   cordinateinit = []
   autobus = [];
   idbus;
-  busDetails;
+  busDetails;  
+  
 
 
   constructor(private router: Router, private service: UserService, ) { }
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
     this.service.getBusId().subscribe(
       res => {
         res.forEach(element => {
-          this.autobus.push(element.IdBUS);
+          this.autobus.push(element.value);
         });
 
       },
@@ -44,11 +45,6 @@ export class HomeComponent implements OnInit {
     this.service.getMapData().subscribe(
       res => {
         this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
-        // res.forEach(element => {
-        //   let a = []
-        //   a.push(element.Longitudine, element.Latitudine)
-        //   this.cordinate.push(a)
-        // });
       },
       err => {
         console.log(err);
@@ -60,7 +56,7 @@ export class HomeComponent implements OnInit {
     this.service.getMapDataByID(Id).subscribe(
       res => {
         this.cordinate = [];
-        this.busDetails = res[0]
+        this.busDetails = res[0];
         // console.log(this.cordinateinit)
         //this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
         res.forEach(element => {

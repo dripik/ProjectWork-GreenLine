@@ -20,17 +20,21 @@ namespace GenBus2.Strumenti
 
             return new decimal((double)random.NextDouble() * (12.8 - 12.5) + 12.5);
         }
+        public int Pass()
+        {
+            return random.Next(0, 50);
+        }
 
         public string Generatore()
         {
             modeljson json = new modeljson()
             {
-                IdVeicolo = 1,
-                StringaVeicolo = "pordenone",
+                IdVeicolo = 5,
+                StringaVeicolo = "Pordenone",
                 TimeStamp = DateTime.Now.ToString(),
                 Latitudine = Long(),
                 Longitudine = Lat(),
-                Passeggeri = 10,
+                Passeggeri = Pass(),
                 PorteAperte = true
 
             };

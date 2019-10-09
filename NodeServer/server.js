@@ -2,13 +2,13 @@ const Influx = require('influx');
 const pg = require('pg');
 const connectionStr = {
   user: 'postgres',
-  host: '192.168.1.5',
+  host: '192.168.1.155',
   database: 'postgres',
   password: 'password!',
   port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.3';
+const fastifyip = '192.168.1.155';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
@@ -20,23 +20,22 @@ fastify
 const os = require('os');
 var contatore = 0;
 const influx = new Influx.InfluxDB({
-  host: '192.168.1.5',
+  host: '192.168.1.155',
   database: 'express_3',
   schema: [
     {
       measurement: 'response_times',
       fields: {
-        IdVeicolo: Influx.FieldType.INTEGER,
+        Host: Influx.FieldType.STRING,
         StringaVeicolo: Influx.FieldType.STRING,
         TimeStamp: Influx.FieldType.STRING,
         Latitudine: Influx.FieldType.FLOAT,
         Longitudine: Influx.FieldType.FLOAT,
-        Altitudine: Influx.FieldType.FLOAT,
         Passeggeri: Influx.FieldType.INTEGER,
         PorteAperte: Influx.FieldType.BOOLEAN
       },
       tags: [
-        'host'
+        'IdVeicolo'
       ]
     }
   ]
@@ -55,14 +54,13 @@ fastify.post('/', async (request, reply) => {
   await influx.writePoints([
     {
       measurement: 'response_times',
-      tags: { host: os.hostname() },
+      tags: { IdVeicolo: dati.IdVeicolo },
       fields: {
-        IdVeicolo: dati.IdVeicolo,
+        Host: os.hostname(),
         StringaVeicolo: dati.StringaVeicolo,
         TimeStamp: dati.TimeStamp,
         Latitudine: dati.Latitudine,
         Longitudine: dati.Longitudine,
-        Altitudine: 10,
         Passeggeri: dati.Passeggeri,
         PorteAperte: dati.PorteAperte
       },
@@ -83,7 +81,7 @@ fastify.get('/get', (request, reply) => {
   if (typeof BusId !== 'undefined') {
     let id = parseInt(BusId);
     influx.query(`
-    select * from response_times where IdVeicolo =${id}`)
+    select * from response_times where IdVeicolo = '${id}'`)
       .then(result => {
         reply.status(200).send(JSON.stringify(result))
       }).catch(err => {
@@ -102,7 +100,7 @@ fastify.get('/get', (request, reply) => {
 //parte in get per id BUS
 fastify.get('/get/idBUS', (request, reply) => {
   influx.query(`
-    select distinct IdVeicolo as IdBUS from response_times `)
+  SHOW TAG VALUES WITH KEY = IdVeicolo `)
     .then(result => {
       reply.status(200).send(JSON.stringify(result))
     }).catch(err => {

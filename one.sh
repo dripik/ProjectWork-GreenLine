@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # 
 echo "avvio di influx db su docker su porta 8086"
 sudo docker run --rm --name=influxdb -d -p 8086:8086 influxdb
@@ -20,3 +20,6 @@ export PGPASSWORD='password!'; psql -p 5432 -U postgres -h localhost -c"CREATE E
 
 );"
 echo "Creazione completata!! "
+echo "Avvio redis"
+sudo docker run --rm --name=redis-docker -p 6379:6379 -d redis
+echo "Redis avviato su porta 6379"

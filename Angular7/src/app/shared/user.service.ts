@@ -3,8 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 interface idBus {
-  time: string,
-  IdBUS: number
+  key: string, 
+  value: string
 }
 interface Location {
   IdVeicolo: number,
@@ -12,7 +12,6 @@ interface Location {
   TimeStamp: string,
   Latitudine: number,
   Longitudine: number,
-  Altitudine: number,
   Passeggeri: number,
   PorteAperte: boolean
 }
@@ -22,7 +21,7 @@ interface Location {
 export class UserService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'http://192.168.1.3:4000';
+  readonly BaseURI = 'http://192.168.1.155:4000';
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
