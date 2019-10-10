@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GenBus2.Strumenti
+namespace GenBus.Strumenti
 {
     class GenCord : modeljson
     {

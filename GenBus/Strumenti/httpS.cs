@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenBus2.Strumenti
+namespace GenBus.Strumenti
 {
     class httpS
     {

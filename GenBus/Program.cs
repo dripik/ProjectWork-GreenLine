@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Threading.Tasks;
-using GenBus2.Strumenti;
+using GenBus.Strumenti;
 using CSRedis;
 using System.Net.NetworkInformation;
-using static GenBus2.Strumenti.httpS;
+using static GenBus.Strumenti.httpS;
 
-namespace GenBus2
+namespace GenBus
 {
     class Program
     {
         static async Task Main(string[] args)
         {
-
+            string IpRedis = System.Configuration.ConfigurationManager.AppSettings["IpNode"];
+            string IpNode = System.Configuration.ConfigurationManager.AppSettings["IpRedis"];
             var bus = new GenCord();
             // configure Redis
-            RedisClient redis = new RedisClient("192.168.1.155");
+            RedisClient redis = new RedisClient(IpRedis);
             // config ping
             Ping ping = new Ping();
 
@@ -23,7 +24,7 @@ namespace GenBus2
 
                 var data = bus.Generatore();
                 Console.WriteLine(data);
-                PingReply pingReply = ping.Send("192.168.1.155");
+                PingReply pingReply = ping.Send(IpNode);
 
                 if (pingReply.Status == IPStatus.Success)
                 {
@@ -32,7 +33,7 @@ namespace GenBus2
                     {           //questa parte e relativa perchè nel momento che al ping risponde dovrebbe funzionare anche l'api
                         try
                         {
-                            await PostextbyPost("http://192.168.1.155:4000/", x);
+                            await PostextbyPost("http://"+ IpNode + ":4000/", x);
                             Console.WriteLine("dati da coda redis" + x);
 
                         }
@@ -47,7 +48,7 @@ namespace GenBus2
 
                     try
                     {
-                        bool insert = await PostextbyPost("http://192.168.1.155:4000/", data);
+                        bool insert = await PostextbyPost("http://" + IpNode + ":4000/", data);
                         Console.WriteLine(insert);
 
                     }

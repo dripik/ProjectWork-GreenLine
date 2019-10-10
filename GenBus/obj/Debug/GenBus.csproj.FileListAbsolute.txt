@@ -1,0 +1,11 @@
+C:\Users\Mark\Desktop\GenBus\bin\Debug\GenBus.exe.config
+C:\Users\Mark\Desktop\GenBus\bin\Debug\GenBus.exe
+C:\Users\Mark\Desktop\GenBus\bin\Debug\GenBus.pdb
+C:\Users\Mark\Desktop\GenBus\bin\Debug\csredis.dll
+C:\Users\Mark\Desktop\GenBus\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mark\Desktop\GenBus\bin\Debug\csredis.xml
+C:\Users\Mark\Desktop\GenBus\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Mark\Desktop\GenBus\obj\Debug\GenBus.csprojAssemblyReference.cache
+C:\Users\Mark\Desktop\GenBus\obj\Debug\GenBus.csproj.CopyComplete
+C:\Users\Mark\Desktop\GenBus\obj\Debug\GenBus.exe
+C:\Users\Mark\Desktop\GenBus\obj\Debug\GenBus.pdb

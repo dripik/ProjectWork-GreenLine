@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GenBus2.Strumenti
+namespace GenBus.Strumenti
 {
     class modeljson
     {
