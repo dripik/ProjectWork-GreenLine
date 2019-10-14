@@ -22,14 +22,14 @@ namespace GenBus.Strumenti
         }
         public int Pass()
         {
-            return random.Next(0, 50);
+            return random.Next(0, 70);
         }
 
         public string Generatore()
         {
             modeljson json = new modeljson()
             {
-                IdVeicolo = 5,
+                IdVeicolo = 2,
                 StringaVeicolo = "Pordenone",
                 TimeStamp = DateTime.Now.ToString(),
                 Latitudine = Long(),

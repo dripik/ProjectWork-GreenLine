@@ -21,7 +21,7 @@ interface Location {
 export class UserService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'http://192.168.1.155:4000';
+  readonly BaseURI = 'http://192.168.1.6:4000';
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
@@ -47,7 +47,7 @@ export class UserService {
   }
 
   register() {
-    var body = {
+    let body = {
       UserName: this.formModel.value.UserName,
       Email: this.formModel.value.Email,
       FullName: this.formModel.value.FullName,

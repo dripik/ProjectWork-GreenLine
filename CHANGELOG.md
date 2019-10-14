@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.6] - 14/10/2019
+### Added
+- Avg Passeggeri in Angular 7 
+
 ## [0.0.5] - 09/10/2019
 ### Deleted
 - useless folder

@@ -2,5 +2,6 @@
 
 - Una volta aperto il progetto eseguire un npm install per scaricare i package .
 
- - Avviando il programma questo cercherà di creare un db su influx, assicurarsi di aver avviato il db o di eseguire il comando per avviare un container docker 
-- docker run --name=influxdb -d -p 8086:8086 influxdb 
+- Cambiare con l'ip della macchina la variabile fastifyip 
+
+- Avviando il programma questo cercherà di creare un db su influx, se la procedura non dovesse andare a buon fine verra segnalato in console un errore.

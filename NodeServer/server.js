@@ -2,7 +2,7 @@ const Influx = require('influx');
 const pg = require('pg');
 const connectionStr = {
   user: 'postgres',
-  host: '192.168.1.155',
+  host: 'localhost',
   database: 'postgres',
   password: 'password!',
   port: 5432
@@ -20,7 +20,7 @@ fastify
 const os = require('os');
 var contatore = 0;
 const influx = new Influx.InfluxDB({
-  host: '192.168.1.155',
+  host: 'localhost',
   database: 'express_3',
   schema: [
     {
