@@ -15,7 +15,7 @@ namespace GenBus
         {
             string IpRedis = System.Configuration.ConfigurationManager.AppSettings["IpNode"];
             string IpNode = System.Configuration.ConfigurationManager.AppSettings["IpRedis"];
-                        // configure Redis
+            // configure Redis
             RedisClient redis = new RedisClient(IpRedis);
             // config ping
             Ping ping = new Ping();
