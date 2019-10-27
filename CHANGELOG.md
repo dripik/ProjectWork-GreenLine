@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.1.0] - 27/10/2019
+### Added
+- Minor changes on GenBus for reading .txt file 
+- Add .txt file with real coordinate
+
 ## [0.0.6] - 14/10/2019
 ### Added
 - Avg Passeggeri in Angular 7 
