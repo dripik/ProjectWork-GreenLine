@@ -15,6 +15,8 @@ namespace GenBus
         {
             string IpRedis = System.Configuration.ConfigurationManager.AppSettings["IpNode"];
             string IpNode = System.Configuration.ConfigurationManager.AppSettings["IpRedis"];
+            string Filename = System.Configuration.ConfigurationManager.AppSettings["Bus"];
+            int IdVeicolo = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["IdBus"]);
             // configure Redis
             RedisClient redis = new RedisClient(IpRedis);
             // config ping
@@ -22,7 +24,7 @@ namespace GenBus
 
             while (true)
             {
-                using (StreamReader r = new StreamReader("C:\\3.txt"))
+                using (StreamReader r = new StreamReader("../../Strumenti/"+Filename))
                 {
                     string file = r.ReadToEnd();
                     dynamic array = JsonConvert.DeserializeObject(file);
@@ -30,8 +32,8 @@ namespace GenBus
                     {
                         modeljson json = new modeljson()
                         {
-                            IdVeicolo = 1,
-                            StringaVeicolo = "Pordenone",
+                            IdVeicolo = IdVeicolo,
+                            StringaVeicolo = Filename.Replace(".txt", ""),
                             TimeStamp = DateTime.Now.ToString(),
                             Latitudine = item[1],
                             Longitudine = item[0],
