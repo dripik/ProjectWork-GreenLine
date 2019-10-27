@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
   userDetails;
-  cordinate = [];
-  cordinateinit = [];
+  coordinate = [];
+  coordinateinit = [];
   autobus = [];
   idbus;
   busDetails;
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     // questa chiamata si può migliorare perchè al momento fa arrivare tutto un log per solo due cordinate init mappa
     this.service.getMapData().subscribe(
       res => {
-        this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine);
+        this.coordinateinit.push(res[0].Longitudine, res[0].Latitudine);
       },
       err => {
         console.log(err);
@@ -53,14 +53,14 @@ export class HomeComponent implements OnInit {
   BusSelect(Id) {
     this.service.getMapDataByID(Id).subscribe(
       res => {
-        this.cordinate = [];
+        this.coordinate = [];
         let passeggeri_sum = 0;
         // console.log(this.cordinateinit)
         // this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
         res.forEach(element => {
           let a = [];
           a.push(element.Longitudine, element.Latitudine);
-          this.cordinate.push(a);
+          this.coordinate.push(a);
           passeggeri_sum += element.Passeggeri;
         });
         this.busDetails = res[0];

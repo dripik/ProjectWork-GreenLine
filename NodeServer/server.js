@@ -1,6 +1,7 @@
 const Influx = require('influx');
 const pg = require('pg');
-const connectionStr = {
+//config postgres
+const connectionStr = {                            
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
@@ -19,6 +20,7 @@ fastify
 
 const os = require('os');
 var contatore = 0;
+//config influx
 const influx = new Influx.InfluxDB({
   host: 'localhost',
   database: 'express_3',
@@ -107,7 +109,7 @@ fastify.get('/get/idBUS', (request, reply) => {
       reply.status(500).send(err.stack)
     })
 })
-//////////////////////////////////////////////////////// parte per sito web che gestite le richieste di login e registrazione
+//////////////// parte per sito web che gestite le richieste di login e registrazione
 fastify.post('/ApplicationUser/Registration', (request, reply) => {
   const client = new pg.Client(connectionStr);
   var dati = request.body;

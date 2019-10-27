@@ -52,7 +52,7 @@
 
         <aol-map>
           <aol-view [zoom]="11">
-            <aol-coordinate [x]="cordinateinit[0]" [y]="cordinateinit[1]" [srid]="'EPSG:4326'"></aol-coordinate>
+            <aol-coordinate [x]="coordinateinit[0]" [y]="coordinateinit[1]" [srid]="'EPSG:4326'"></aol-coordinate>
           </aol-view>
           <aol-interaction-default></aol-interaction-default>
           <aol-layer-tile>
@@ -62,7 +62,7 @@
             <aol-source-vector>
               <aol-feature>
                 <aol-geometry-linestring>
-                  <aol-collection-coordinates [coordinates]="cordinate.slice()" [srid]="'EPSG:4326'">
+                  <aol-collection-coordinates [coordinates]="coordinate.slice()" [srid]="'EPSG:4326'">
                   </aol-collection-coordinates>
                 </aol-geometry-linestring>
                 <aol-style>
