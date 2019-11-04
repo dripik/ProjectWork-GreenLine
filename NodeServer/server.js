@@ -1,5 +1,6 @@
 const Influx = require('influx');
 const pg = require('pg');
+
 //config postgres
 const connectionStr = {                            
   user: 'postgres',
@@ -9,7 +10,7 @@ const connectionStr = {
   port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.1.155';
+const fastifyip = '192.168.101.100';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
@@ -20,6 +21,7 @@ fastify
 
 const os = require('os');
 var contatore = 0;
+const io = require('socket.io')(fastify.server)
 //config influx
 const influx = new Influx.InfluxDB({
   host: 'localhost',
@@ -168,6 +170,30 @@ fastify.get('/UserProfile', (request, reply) => {
         reply.status(500).send(err)
       })
   }
+})
+
+io.on('connection', function(socket){
+  console.log("user connect");
+  var msg2;
+  socket.on('prova', function(msg){
+    console.log('message: ' + msg);
+    msg2 = msg
+  
+  if(msg2!= null)
+  {
+    setInterval(()=>{
+    influx.query(`
+    select * from response_times where IdVeicolo = '${msg}'`)
+      .then(result => {
+        socket.emit('prova', JSON.stringify(result))
+        //reply.status(200).send()
+      }).catch(err => {
+        socket.emit('prova', JSON.stringify(err))
+        //reply.status(500).send(err.stack)
+      })
+  },3000)
+}
+});
 })
 // Run the server!
 const start = async () => {
