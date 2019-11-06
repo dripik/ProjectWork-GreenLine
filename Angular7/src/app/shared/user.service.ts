@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import * as io from "socket.io-client";
+import { Observable,of } from 'rxjs';
 
 interface idBus {
-  key: string, 
+  key: string,
   value: string
 }
 interface Location {
@@ -15,13 +17,17 @@ interface Location {
   Passeggeri: number,
   PorteAperte: boolean
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  socket: any;
+  readonly BaseURI = 'http://192.168.1.9:4000';
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.socket = io(this.BaseURI);
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'http://192.168.43.184:4000';
+  }
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
@@ -65,15 +71,32 @@ export class UserService {
   }
 
   getMapData() {
-    return this.http.get<Location[]>(this.BaseURI+ '/get');
+    return this.http.get<Location[]>(this.BaseURI + '/get');
   }
 
-  getMapDataByID(Id:string) {
+  getMapDataByID(Id: string) {
     let params = new HttpHeaders().set("IdBus", Id);
-    return this.http.get<Location[]>(this.BaseURI + '/get',  {headers: params});
+    return this.http.get<Location[]>(this.BaseURI + '/get', { headers: params });
   }
 
   getBusId() {
     return this.http.get<idBus[]>(this.BaseURI + '/get/idBUS');
   }
+  ///////////////parte per socket.io
+  listen(Eventname: string) {
+    return new Observable<Location>((subscribe) => {
+      this.socket.on(Eventname, (data) => {
+        subscribe.next(data);
+      })
+    })
+  }
+  emit(Eventname: string, data: any) {
+    this.socket.emit(Eventname, data);
+  }
+
+
+
+
+
+
 }

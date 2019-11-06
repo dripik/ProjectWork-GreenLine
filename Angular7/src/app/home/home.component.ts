@@ -28,18 +28,36 @@ export class HomeComponent implements OnInit {
         console.log(err);
       },
     );
+    this.service.listen('response').subscribe(res =>{
+      console.log(typeof(res))
+    });
+      //this.coordinate.push(res)
+      //let passeggeri_sum = 0;
+      
+      
+      // this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
+      // res.forEach(element => {
+      // let a = [];
+      // a.push(res.Longitudine, res.Latitudine);
+      // console.log(a)
+      // this.coordinate.push(a);
+      // console.log(this.coordinate)
+      //   //passeggeri_sum += element.Passeggeri;
+      // });
+      // this.busDetails = res[0];
+      //this.busDetails.Passeggeri = (Math.round(passeggeri_sum / res.length));  // Media passeggeri
+      // console.log(this.busDetails);
+ 
     this.service.getBusId().subscribe(
       res => {
         res.forEach(element => {
           this.autobus.push(element.value);
         });
-
       },
       err => {
         console.log(err);
       },
     );
-    // questa chiamata si può migliorare perchè al momento fa arrivare tutto un log per solo due cordinate init mappa
     this.service.getMapData().subscribe(
       res => {
         this.coordinateinit.push(res[0].Longitudine, res[0].Latitudine);
@@ -47,8 +65,8 @@ export class HomeComponent implements OnInit {
       err => {
         console.log(err);
       },
-
     );
+
   }
   BusSelect(Id) {
     this.service.getMapDataByID(Id).subscribe(
@@ -72,10 +90,13 @@ export class HomeComponent implements OnInit {
       },
     );
   }
-
+  BusSelectio(Id){
+    this.service.emit('request',Id);
+  }
 
   onLogout() {
     localStorage.removeItem('token');
     this.router.navigate(['/user/login']);
   }
+  
 }

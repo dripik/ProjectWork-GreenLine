@@ -2,7 +2,7 @@ const Influx = require('influx');
 const pg = require('pg');
 
 //config postgres
-const connectionStr = {                            
+const connectionStr = {
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
@@ -10,7 +10,7 @@ const connectionStr = {
   port: 5432
 };
 const fastifyport = 4000;
-const fastifyip = '192.168.101.100';
+const fastifyip = '192.168.1.9';
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
@@ -76,7 +76,7 @@ fastify.post('/', async (request, reply) => {
     reply.status(204),
     console.log("// " + (++contatore)),
     console.log(request.body))
-  
+
 });
 
 //parte in get
@@ -172,28 +172,19 @@ fastify.get('/UserProfile', (request, reply) => {
   }
 })
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
   console.log("user connect");
-  var msg2;
-  socket.on('prova', function(msg){
-    console.log('message: ' + msg);
-    msg2 = msg
-  
-  if(msg2!= null)
-  {
-    setInterval(()=>{
-    influx.query(`
-    select * from response_times where IdVeicolo = '${msg}'`)
-      .then(result => {
-        socket.emit('prova', JSON.stringify(result))
-        //reply.status(200).send()
-      }).catch(err => {
-        socket.emit('prova', JSON.stringify(err))
-        //reply.status(500).send(err.stack)
-      })
-  },3000)
-}
-});
+  socket.on('request', function (msg) {   //richieta dal client
+    setInterval(() => {
+      influx.query(`
+      select * from response_times where IdVeicolo = '${msg}' ORDER BY desc LIMIT 1`)
+        .then(result => {
+          socket.emit('response', JSON.stringify(result))     //quello che ritorno dal server al client
+        }).catch(err => {
+          socket.emit('response', JSON.stringify(err))
+        })
+    }, 3000)
+  });
 })
 // Run the server!
 const start = async () => {
