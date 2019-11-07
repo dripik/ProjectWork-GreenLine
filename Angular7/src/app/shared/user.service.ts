@@ -84,7 +84,7 @@ export class UserService {
   }
   ///////////////parte per socket.io
   listen(Eventname: string) {
-    return new Observable<Location>((subscribe) => {
+    return new Observable<any>((subscribe) => {
       this.socket.on(Eventname, (data) => {
         subscribe.next(data);
       })

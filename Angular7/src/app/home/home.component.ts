@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   idbus;
   busDetails;
 
-  constructor(private router: Router, private service: UserService, ) { }
+  constructor(private router: Router, private service: UserService, ) {  }
 
   ngOnInit() {
     this.service.getUserProfile().subscribe(
@@ -29,12 +29,14 @@ export class HomeComponent implements OnInit {
       },
     );
     this.service.listen('response').subscribe(res =>{
-      console.log(typeof(res))
+      let result = JSON.parse(res);
+      let a = [];
+      a.push(result[0].Longitudine,result[0].Latitudine);
+      this.coordinate.push(a)
+      console.log(this.coordinate)
     });
-      //this.coordinate.push(res)
+      //
       //let passeggeri_sum = 0;
-      
-      
       // this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
       // res.forEach(element => {
       // let a = [];
