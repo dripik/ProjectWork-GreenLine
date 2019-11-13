@@ -31,25 +31,11 @@ export class HomeComponent implements OnInit {
     this.service.listen('response').subscribe(res =>{
       let result = JSON.parse(res);
       let a = [];
+      this.busDetails = result[0]
       a.push(result[0].Longitudine,result[0].Latitudine);
       this.coordinate.push(a)
       console.log(this.coordinate)
     });
-      //
-      //let passeggeri_sum = 0;
-      // this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
-      // res.forEach(element => {
-      // let a = [];
-      // a.push(res.Longitudine, res.Latitudine);
-      // console.log(a)
-      // this.coordinate.push(a);
-      // console.log(this.coordinate)
-      //   //passeggeri_sum += element.Passeggeri;
-      // });
-      // this.busDetails = res[0];
-      //this.busDetails.Passeggeri = (Math.round(passeggeri_sum / res.length));  // Media passeggeri
-      // console.log(this.busDetails);
- 
     this.service.getBusId().subscribe(
       res => {
         res.forEach(element => {
@@ -92,8 +78,13 @@ export class HomeComponent implements OnInit {
       },
     );
   }
-  BusSelectio(Id){
+  BusRealtime(Id){
+    this.coordinate = [];
     this.service.emit('request',Id);
+  };
+  stop(){
+    this.coordinate = [];
+    ;this.service.emit('STOP','STOP');
   }
 
   onLogout() {
