@@ -171,11 +171,14 @@ fastify.get('/UserProfile', (request, reply) => {
       })
   }
 })
-
+///////parte per socket.io
 io.on('connection', function (socket) {
-  console.log("user connect");
-  socket.on('request', function (msg) {   //richieta dal client
-    setInterval(() => {
+  var Interval = "";
+  console.log("Socket.io collegato");
+  socket.on('request', function (msg) {
+    console.log("richiesta invio dati realtime id : " + msg)
+    //richieta dal client
+    Interval = setInterval(() => {
       influx.query(`
       select * from response_times where IdVeicolo = '${msg}' ORDER BY desc LIMIT 1`)
         .then(result => {
@@ -185,6 +188,10 @@ io.on('connection', function (socket) {
         })
     }, 3000)
   });
+  socket.on('STOP', () => {
+    console.log("Stop Invio dati realtime")
+    clearInterval(Interval);
+  })
 })
 // Run the server!
 const start = async () => {
