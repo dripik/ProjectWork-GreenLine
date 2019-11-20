@@ -1,4 +1,4 @@
-● sr
+● src
 +---● app
 |   +--● user
 |   |  |--user.component.ts|.html
