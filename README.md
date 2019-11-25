@@ -18,4 +18,4 @@ Verrà creata su quest'ultima una tabella per la registrazione degli utenti del 
 
 
 
-Pre-requisiti software: Nodejs/npm, Angular CLI, docker.io, postgresql-client
+Pre-requisiti software: Nodejs/npm, Angular CLI, docker.io, postgresql-client 

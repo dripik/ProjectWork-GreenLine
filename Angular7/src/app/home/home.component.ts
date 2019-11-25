@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
         });
         this.busDetails = res[0];
         this.busDetails.Passeggeri = (Math.round(passeggeri_sum / res.length));  // Media passeggeri
-        this.busDetails.Timestamp_veicolo = res[res.length - 1].TimeStamp;
+        this.busDetails.Timestamp_veicolo = res[res.length - 1].TimeStamp; // ultimo valore timestamp
         console.log(this.busDetails);
       },
 

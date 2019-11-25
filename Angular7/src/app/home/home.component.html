@@ -29,14 +29,6 @@
             {{item}}</button>
         </div>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false" style="color:#5cdb95; cursor: pointer;">Data</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01" style="cursor:hover=pointer">
-          <button *ngFor="let item of array_date " class="dropdown-item" type="button"><strong>Giorno: </strong>
-            {{item}}</button>
-        </div>
-      </li>
     </ul>
     <button class="btn btn-danger my-2 my-sm-0" id="bottone_logout"(click)="onLogout()">Logout</button>
   </div>
