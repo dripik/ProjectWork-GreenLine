@@ -1,6 +1,8 @@
 import { UserService } from './../shared/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { timestamp } from 'rxjs/operators';
+import { last } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -16,6 +18,8 @@ export class HomeComponent implements OnInit {
   autobus = [];
   idbus;
   busDetails;
+  Timestamp_veicolo;
+  array_date = [];
 
   constructor(private router: Router, private service: UserService, ) { }
 
@@ -50,6 +54,7 @@ export class HomeComponent implements OnInit {
 
     );
   }
+
   BusSelect(Id) {
     this.service.getMapDataByID(Id).subscribe(
       res => {
@@ -58,21 +63,25 @@ export class HomeComponent implements OnInit {
         // console.log(this.cordinateinit)
         // this.cordinateinit.push(res[0].Longitudine, res[0].Latitudine)
         res.forEach(element => {
-          let a = [];
+          const a = [];
+          const array = [];
           a.push(element.Longitudine, element.Latitudine);
+          array.push(element.TimeStamp);
           this.coordinate.push(a);
+          this.array_date.push(array);
           passeggeri_sum += element.Passeggeri;
         });
         this.busDetails = res[0];
         this.busDetails.Passeggeri = (Math.round(passeggeri_sum / res.length));  // Media passeggeri
-        // console.log(this.busDetails);
+        this.busDetails.Timestamp_veicolo = res[res.length - 1].TimeStamp;
+        console.log(this.busDetails);
       },
+
       err => {
         console.log(err);
       },
     );
   }
-
 
   onLogout() {
     localStorage.removeItem('token');

@@ -24,10 +24,12 @@ export class RegistrationComponent implements OnInit {
         }
       },
       (err: any) => {
-        if (err.status == 500)
+        // tslint:disable-next-line: triple-equals
+        if (err.status == 500) {
           this.toastr.error('Registration failed. ' + err.error.message);
-        else
+        } else {
           console.log(err);
+        }
       }
     );
   }

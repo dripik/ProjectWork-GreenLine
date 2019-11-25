@@ -1,95 +1,238 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(https://fonts.googleapis.com/css?family=Signika:400,700|Courgette);
+
 body{
-    background-color: rgb(4, 197, 130);;
+  background-image: url("d:/ProjectWork/ProjectWork-GreenLine/Angular7/src/assets/img/greenLine_background_img.jpg");
+  background-image: center;
+  padding-top: 0px;
 }
 
 input.form-control,input.form-control:focus{
-    background-color: #636b7b;
-    color: #fff;
-    border: 1px solid #636b7b;
+  background-color: #252525;
+  color: #fff;
+  border: 1px solid #252525;
 
 }
 
 input.form-control:focus{
-    box-shadow: none;
+  box-shadow: none;
 }
 
 button[type=submit].btn{
-    border-radius: 20px;
-    background-color: #04c582;
-    color: #fff;
+  border-radius: 20px;
+  background-color: #04c582;
+  color: #fff;
+  margin-top: 20px;
 }
 
 div.form-group label:not(.text-danger){
-    color: #545d6a;
-    font-weight: 700;
+  color:silver;
+  font-weight: 750;
+  font-style: italic;
+  text-rendering: optimizeLegibility;
+  /*color: #545d6a;*/
 }
 
 div.form-group.required>label:first-child:after{
-    content:'*';
-    color: #fff;
-    padding-left: 5px;
+  content:'*';
+  color: #fff;
+  padding-left: 5px;
 }
 
 #toast-container > div {
-    opacity:1;
+  opacity:1;
 }
 
 .wrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column; 
-    justify-content: center;
-    width: 100%;
-    padding: 20px;
-  }
-
-  .wrapped-div {
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border-radius: 10px 10px 10px 10px;
-    background: #2e3137;
-    padding: 30px;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  }
-
-  /* Tabs */
-.tab-header{
-    text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding-top: 2.5%;
 }
 
-  .tab-header h2.active {
-    color: #fff;
-    border-bottom: 4px solid #fff;
-  }
+.wrapped-div {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #2e3137;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: inset 0px 0px 10px #ccc;
+  box-shadow: inset 0px 0px 10px #ccc;
+}
 
-  .tab-header h2 {
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    display:inline-block;
-    padding: 30px 40px 10px 40px;
-    cursor: pointer;
-    color: #545d6a;
-    border-bottom: 2px solid #545d6a;
-  }
+/* Tabs */
+.tab-header{
+  text-align: center;
+}
 
-  .tab-header h2:focus {
-      outline: none;
-  }
+.tab-header h2.active {
+  color: #fff;
+  border-bottom: 4px solid #fff;
+}
 
-  form{
-      margin: 0px 16px;
-  }
+.tab-header h2 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  display:inline-block;
+  padding: 30px 40px 10px 40px;
+  cursor: pointer;
+  color: #545d6a;
+  border-bottom: 2px solid #545d6a;
+}
 
- div.form-group input.invalid{
-    border: 1px solid #dc3545; 
- }
- div.form-group label:first-child{
-    text-transform: uppercase;
-    font-size: 0.9rem;
- }
+.tab-header h2:focus {
+    outline: none;
+}
+
+form{
+    margin: 10%;
+
+}
+
+div.form-group input.invalid{
+  border: 1px solid #dc3545;
+}
+div.form-group label:first-child{
+  font-size: 1.01rem;
+  text-rendering: optimizeLegibility;
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+input {
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    padding: 8px;
+    width: 100%;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    max-width: 450px;
+    position: relative;
+    border:none;
+    background: #636A7C;
+    color:#fff;
+    line-height: 0;
+        transition: all .5s linear;
+        font-size: 18px;
+
+}
+
+input:hover, input:focus {
+    outline: 0;
+    transition: all .5s linear;
+    box-shadow: inset 0px 0px 10px #ccc;
+}
+
+.map{
+  margin: 50px;
+  max-width: 1200px;
+  position: relative;
+  border:solid 2px;
+  border: 8px inset rgba(47,109,168,0.52);
+  border-radius: 10px;
+}
+
+#dati_autobus{
+  width:20rem;
+  border:solid 2px;
+  border:8px inset rgba(47,109,168,0.52);
+  border-radius: 10px;
+}
+
+#bottone_logout{
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Lato', sans-serif;
+  width: 130px;
+}
+
+.nav-link{
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*la main del footer*/
+footer .main-footer{	padding: 20px 0;	background: #252525;}
+footer ul{	padding-left: 0;	list-style: none;}
+
+/*La barra del copyrigth*/
+.footer-copyright {	background: #222;	padding: 5px 0;}
+.footer-copyright .logo {    display: inherit;}
+.footer-copyright nav {    float: right;    margin-top: 5px;}
+.footer-copyright nav ul {	list-style: none;	margin: 0;	padding: 0;}
+.footer-copyright nav ul li {	border-left: 1px solid #5cdb95;	display: inline-block;	line-height: 12px;	margin: 0;	padding: 0 8px;}
+.footer-copyright nav ul li a{	color: #5cdb95;}
+.footer-copyright nav ul li:first-child {	border: medium none;	padding-left: 0;}
+.footer-copyright p {	color: #5cdb95;	margin: 2px 0 0;}
+
+/*A parte de sora del footer*/
+.footer-top{	background: #252525;	padding-bottom: 30px;	margin-bottom: 30px;	border-bottom: 3px solid #222;}
+
+/*trasparenza*/
+footer.transparent .footer-top, footer.transparent .main-footer{	background: transparent;}
+footer.transparent .footer-copyright{	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3) ;}
+
+/*light*/
+footer.light .footer-top{	background: #5cdb95;}
+footer.light .main-footer{	background: #5cdb95;}
+footer.light .footer-copyright{	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.3) ;}
+
+/*loghetto*/
+.footer- .logo {    display: inline-block;}
+
+
+.widget{	padding: 20px;	margin-bottom: 40px;}
+.widget.widget-last{	margin-bottom: 0px;}
+.widget.no-box{	padding: 0;	background-color: transparent;	margin-bottom: 40px;
+	box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; -o-box-shadow: none;}
+.widget.subscribe p{	margin-bottom: 18px;}
+.widget li a{	color: #ff8d1e;}
+.widget li a:hover{	color: #4b92dc; border-radius: 6px; border: solid 2px;}
+.widget-title {margin-bottom: 20px;}
+.widget-title span {background: #5cdb95 none repeat scroll 0 0;display: block; height: 1px;margin-top: 25px;position: relative;width: 20%;}
+.widget-title span::after {background: inherit;content: "";height: inherit;    position: absolute;top: -4px;width: 50%;}
+.widget-title.text-center span,.widget-title.text-center span::after {margin-left: auto;margin-right:auto;left: 0;right: 0;}
+.widget .badge{	float: right;	background: #5cdb95;}
+
+.typo-light h1,
+.typo-light h2,
+.typo-light h3,
+.typo-light h4,
+.typo-light h5,
+.typo-light h6,
+.typo-light p,
+.typo-light div,
+.typo-light span,
+.typo-light small{	color: #5cdb95;}
+
+ul.social-footer2 {	margin: 0;padding: 0;	width: auto;}
+ul.social-footer2 li {display: inline-block;padding: 0;}
+ul.social-footer2 li a:hover {background-color:#4b92dc;}
+ul.social-footer2 li a {display: block;	height:30px;width: 30px;text-align: center;}
+.btn{background-color: #ff8d1e; color:#fff;}
+.btn:hover, .btn:focus, .btn.active {background: #4b92dc;color: #fff;
+-webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+-ms-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+-o-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+-webkit-transition: all 250ms ease-in-out 0s;
+-moz-transition: all 250ms ease-in-out 0s;
+-ms-transition: all 250ms ease-in-out 0s;
+-o-transition: all 250ms ease-in-out 0s;
+transition: all 250ms ease-in-out 0s;
+
+}
