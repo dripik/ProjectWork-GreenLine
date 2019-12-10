@@ -1,0 +1,13 @@
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.exe
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.deps.json
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.runtimeconfig.json
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.runtimeconfig.dev.json
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.dll
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.pdb
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\obj\Debug\netcoreapp3.0\GenBus.csprojAssemblyReference.cache
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\obj\Debug\netcoreapp3.0\GenBus.AssemblyInfoInputs.cache
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\obj\Debug\netcoreapp3.0\GenBus.AssemblyInfo.cs
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\obj\Debug\netcoreapp3.0\GenBus.dll
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\obj\Debug\netcoreapp3.0\GenBus.pdb
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\bin\Debug\netcoreapp3.0\GenBus.dll.config
+C:\Users\AB\Documents\Visual Studio 2019\progetti\GenBus\GenBus\obj\Debug\netcoreapp3.0\GenBus.dll.config

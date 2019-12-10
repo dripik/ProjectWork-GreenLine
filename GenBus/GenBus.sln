@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29326.143
+VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenBus", "GenBus.csproj", "{D0A7A971-6E77-46EC-8C20-53604B381A8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenBus", "GenBus\GenBus.csproj", "{92ABA138-A7A6-49D0-B625-AFDA63AB638A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D0A7A971-6E77-46EC-8C20-53604B381A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0A7A971-6E77-46EC-8C20-53604B381A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0A7A971-6E77-46EC-8C20-53604B381A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0A7A971-6E77-46EC-8C20-53604B381A8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ABA138-A7A6-49D0-B625-AFDA63AB638A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ABA138-A7A6-49D0-B625-AFDA63AB638A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ABA138-A7A6-49D0-B625-AFDA63AB638A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ABA138-A7A6-49D0-B625-AFDA63AB638A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1BAE0B73-C598-45FF-9820-C42C1F5E6FF3}
+		SolutionGuid = {2449B903-128C-41E4-9557-E3A1731271E4}
 	EndGlobalSection
 EndGlobal
